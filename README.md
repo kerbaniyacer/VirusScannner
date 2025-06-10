@@ -15,7 +15,7 @@ This is a simple web-based tool that allows users to scan **URLs** and **files**
 ## 🧑‍💻 How to Use
 
 1. Clone or download this repository.
-2. Open `index.html` in your browser.
+2. Open `home.html` in your browser.
 3. Enter a URL or choose a file.
 4. Click **"Scan URL"** or **"Scan File"**.
 5. Wait for the results to load and analyze.
