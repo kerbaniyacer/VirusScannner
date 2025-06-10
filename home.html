@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MyApp Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>VirusTotal Scanner</h1>
+        
+            <section>
+                    <h2>Scan a URL:</h2>
+                    <input type="text" name="url" id="urlInput" placeholder="Entry URL (e.g., https://example.com">    
+                <button onclick="scanUrl()" type="submit" >Scan URL</button>
+            </section>
+            <section>
+                    <h2>Scan a File:</h2>
+                    <input type="file" name="file" id="fileInput" accept=".exe,.dll,.zip,.rar,.pdf,.docx,.xlsx">
+                <button type="submit" onclick="scanFile()">Scan FILE</button>
+            </section>
+            
+            <div id="result"></div>
+            <div id="fullReportModel" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModel()">&times;</span>
+                    <h2>Full Report</h2>
+                    <div id="fullReportContent"></div>
+                </div>
+            </div>
+
+            
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
