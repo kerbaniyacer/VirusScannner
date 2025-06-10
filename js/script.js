@@ -151,6 +151,8 @@ function showFormattedResults(data) {
         suspicious: { color: "suspicious", label: "Suspicious" },
         harmless: { color: "safe", label: "Clean" },
         undetected: { color: "undetected", label: "Undetected" },
+        type_unsupported: { color: "type-unsupported", label: "Unsupported" },
+        timeout: { color: "timeout", label: "Scan Timeout" }
     };
 
     const percents = Object.keys(categories).reduce((acc, key) => {
@@ -173,29 +175,38 @@ function showFormattedResults(data) {
                     <span class="progress-percent">${percents.malicious}% Detection Rate</span>
                 </div>
                 <div class="progress-stacked">
-                    ${Object.entries(categories).map(([key, { color }]) =>`
-                        <div class="progress-bar ${color}" style="width: ${percents[key]}%" title="${categories[key].label}: ${stats[key]} (${percents[key]}%)">
-                            <span class="progress-label-overlay">${stats[key]}</span>
-                        </div>
-                    `
-                    ).join('')}
+                    ${Object.entries(categories).map(([key, { color }]) => {
+                        if (stats[key] !== undefined && stats[key] !== 0)
+                            return `
+                            <div class="progress-bar ${color}" style="width: ${percents[key]}%" title="${categories[key].label}: ${stats[key]} (${percents[key]}%)">
+                                <span class="progress-label-overlay">${stats[key]}</span>
+                            </div>`;
+                        return '';
+                    }).join('')}
+
                 </div>
                 <div class="progress-legend">
-                    ${Object.entries(categories).map(([key, { color, label }]) => `
-                        <div class="legend-item">
-                            <span class="legend-color ${color}"></span>
-                            <span>${label} (${percents[key]}%)</span>
-                        </div>
-                    `).join('')}
+                    ${Object.entries(categories).map(([key, { color, label }]) => {
+                        if (color !== "type-unsupported" && color !== "timeout")
+                            return `
+                            <div class="legend-item">
+                                <span class="legend-color ${color}"></span>
+                                <span>${label} (${percents[key]}%)</span>
+                            </div>`;
+                        return '';
+                    }).join('')}
                 </div>
                 <div class="detection-details">
-                    ${Object.entries(categories).map(([key, { color, label }]) => `
-                        <div class="detail-item ${color}">
-                            <span class="detail-label">${label}:</span>
-                            <span class="detail-count">${stats[key]}</span>
-                            <span class="detail-percent">${percents[key]}%</span>
-                        </div>
-                    `).join('')}
+                    ${Object.entries(categories).map(([key, { color, label }]) => {
+                        if (color !== "type-unsupported" && color !== "timeout")
+                            return `
+                            <div class="detail-item ${color}">
+                                <span class="detail-label">${label}:</span>
+                                <span class="detail-count">${stats[key]}</span>
+                                <span class="detail-percent">${percents[key]}%</span>
+                            </div>`;
+                        return '';
+                    }).join('')}
                 </div>
             </div>
             <button onclick="showFullReport(this.getAttribute('data-report'))" data-report='${JSON.stringify(data)}'>View Full Report</button>
