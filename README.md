@@ -11,9 +11,6 @@ This is a simple web-based tool that allows users to scan **URLs** and **files**
 - 🧠 Verdict system (Safe / Suspicious / Malicious).
 - 🧾 Full JSON report viewer (expandable).
 
-## 📸 Demo
-
-![App Screenshot](screenshot.png) <!-- Optional: Add your own screenshot -->
 
 ## 🧑‍💻 How to Use
 
